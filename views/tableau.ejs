@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styletab.css">
+   
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/64fd832b67.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg  navbar-light bg-light ">
+            <!--<a class="navbar-brand" href="#">Django</a>-->
+            <a class="navbar-brand" href="#">
+                <img src="images/ib.jpg" width="30" height="30" class="d-inline-block align-top" />
+                IbcomApp
+            </a>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="tableau.html">Modifier</a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="dropdown" data-toggle="dropdown">
+                      Features
+                  </a>
+                  <div class="dropdown-menu">
+                      <a class="dropdown-item" href="#">Facebook</a>
+                      <a class="dropdown-item" href="#">Instagram</a>
+                  </div>
+              </li>
+            </ul>
+        </nav>
+    </header>
+
+<!-- Editable table -->
+<div class="card">
+  <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Editable table</h3>
+  <div class="card-body">
+   
+      <table class="table table-bordered table-responsive-md table-striped text-center">
+        <thead>
+          <tr>
+            <th class="text-center">Client</th>
+            <th class="text-center">email</th>
+            <th class="text-center">Page facebook</th>
+            <th class="text-center">Page Instagram</th>
+            <th class="text-center">Montant a Payer</th>
+           
+            
+            <th class="text-center">Remove</th>
+            <th class="text-center">Edit</th>
+          </tr>
+        </thead>
+        <tbody>
+       <%   foundItems.forEach(foundItem=> { %>
+<form action="/<%= foundItem._id %>" method="post">
+        <tr>
+
+          <td class="pt-3-half" contenteditable="true"><%= foundItem.username %> </td>
+          <td class="pt-3-half" contenteditable="true"><%= foundItem.email %> </td>
+          <td class="pt-3-half" contenteditable="true"><%= foundItem.page_facebook %></td>
+          <td class="pt-3-half" contenteditable="true"><%= foundItem.page_instagram %></td>
+          <td class="pt-3-half" contenteditable="true"><%= foundItem.montant %></td>
+         
+          
+          <td>
+            <span class="table-remove"><button type="submit"
+                class="btn btn-danger btn-rounded btn-sm my-0">Remove</button></span>
+          </td>
+          <td><a href="/edit/<%= foundItem._id %>"><button type="button" class="btn btn-info">Edit Client</button></a></td>
+        </tr>
+      </form>
+
+
+         <% }) %>  
+
+         <!-- <tr>
+          <form action="/addClient" method="post">
+      
+         
+            <td class="pt-3-half" contenteditable="true"><input type="text" name="username"></td>
+            <td class="pt-3-half" contenteditable="true"><input type="text" name="email"></td>
+            <td class="pt-3-half" contenteditable="true"><input type="text" name="page_facebook"></td>
+            <td class="pt-3-half" contenteditable="true"><input type="text" name="page_instagram"></td>
+            <td class="pt-3-half" contenteditable="true"><input type="text" name="montantRestant"></td>
+            <td class="pt-3-half" contenteditable="true"><button  class="btn btn-success btn-rounded" type="submit">add New Client</button></td>
+            
+          </form>
+        </tr> -->
+         
+        </tbody>
+
+      </table>
+     
+
+  </div>
+</div>
+<!-- Editable table -->
+  
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="Js/scripttab.js"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+</head>
+<body>
+   <!-- Table  -->
+<table class="table table-bordered">
+    <!-- Table head -->
+    <thead>
+      <tr>
+     
+        <th>Person Name</th>
+        <th>Facebook Page</th>
+        <th>Instagram Page</th>
+        <th>Montant a Payer</th>
+        <th>Save Changes</th>
+      </tr>
+    </thead>
+    <!-- Table head -->
+  
+    <!-- Table body -->
+    <tbody>
+      
+     <%  data.forEach(aData=> {  %>   
+
+        <form action="/edit/<%= aData._id %>" method="post">
+      <tr>
+     
+
+        <td><input type="text" name="username" value="<%= aData.username %>"></td>
+        <td><input type="text" name="facebookPage" value="<%= aData.page_facebook %>"></td>
+        <td><input type="text" name="instagramPage" value="<%= aData.page_instagram %>"></td>
+        <td><input type="text" name="montantApayer" value="<%= aData.montant %>"></td>
+        <td><button type="submit" class="btn btn-success">Save Changes</button></td>
+      </tr>
+        <%  }) %> 
+    </form>
+       
+    </tbody>
+    <!-- Table body -->
+  </table>
+  <!-- Table  -->
+</body>
+</html>
