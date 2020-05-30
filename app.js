@@ -83,70 +83,32 @@ app.get('/register' , function(req,res) {
    res.render('register')
 })
 
+app.post('/register' , function(req,res) {
+  User.register({username : req.body.username, email : req.body.email, page_facebook : req.body.facebook, page_instagram : req.body.instagram},  req.body.password, function(err , user) {
+      if (err) {
+          console.log(err)
+          res.redirect('/register')
+      }
+      else {
+          passport.authenticate("local")(req , res , function(){
+              res.redirect('/dashb')
+          })
+      }
 
+
+})
+})
 
 
 app.get('/tableau' , function(req,res) {
-  User.find({} , function(err,foundItem){
-    if (err) {
-        console.log(err)
-    }     
-    else {
-        if(foundItem) {
-           if (foundItem.length===0) {
-               const user1 = new User({
-    username : "Le Palace",
-    email : "azerty@gmail.com",
-    page_facebook:"John Doe",
-    page_instagram:"John@Doe" ,
-    montant: 45
-               })
-               user1.save(function(err){
-                   if (err) {
-                       console.log(err)
-                   }
-                   else {
-                       console.log("item is succesfully added")
-                   }
-               })
-               const user2 = new User ({
-                username : "peugeot",
-                email : "azerty@gmail.com",
-                page_facebook:"John Doe",
-                page_instagram:"John@Doe" ,
-                montant: 45
-               })
-               user2.save(function(err){
-                if (err) {
-                    console.log(err)
-                }
-                else {
-                    console.log("item is succesfully added")
-                }
-            })
-            user3 = new User ({
-              username : "monde news",
-              email : "azerty@gmail.com",
-              page_facebook:"John Doe",
-              page_instagram:"John@Doe" ,
-              montant: 45
-            })
-    user3.save(function(err) {
-        if (err) {
-            console.log(err)
-        }
-        else {
-            console.log("item added succesfuly")
-        }
-    })
-    
-           }
-          else {
-              res.render('tableau' , {foundItems : foundItem})
-          }
-        }
+  User.find({}, function(err, foundItems){
+    if (!err) {
+    if (foundItems) 
+    res.render('tableau', {foundItems:foundItems})
     }
-    })
+  
+
+})
 
 })
 
@@ -228,21 +190,7 @@ app.get('/tableau' , function(req,res) {
     })
 
 
-app.post('/register' , function(req,res) {
-    User.register({username : req.body.username, email : req.body.email, page_facebook : req.body.facebook, page_instagram : req.body.instagram},  req.body.password, function(err , user) {
-        if (err) {
-            console.log(err)
-            res.redirect('/register')
-        }
-        else {
-            passport.authenticate("local")(req , res , function(){
-                res.redirect('/dashb')
-            })
-        }
 
-
-})
-})
 
 app.get('/login' , function(req,res) {
     res.render("login")
@@ -338,26 +286,40 @@ app.post('/loginadmin' , function(req,res) {
 
 
 app.get("/dashb", function (req, res) {
-  const url = "https://graph.facebook.com/v7.0/me?fields=fan_count%2Cnew_like_count&access_token=EAAJY2fZBDmWABAHusVvng3U5YmucrlZAa6jnQzwj0zg71gJeA0imDmGvpvB2ZC59xAksP8QDVzQwKvMyap9Uza6PPEdP2UcLAwALv3V9F4aU2wx2IMWyHtzHZBEbwVieazsfvSndF2AZA8gb0mesdEUR8IQSecXbzn8k2MymEZBbRA2qg87DZCectd9IJUFSAkTgjoPZBcPdGAZDZD"
+ 
+    if (req.isAuthenticated()){
+      res.render("/dashb");
+    } else {
+      res.redirect("/login");
+    }
+  });
    
-  https.get(url, function (response) {
-    console.log(response.statusCode);
-
-    response.on("data", function (data) {
-      const pagedata = JSON.parse(data)
-      const like = pagedata.fan_count
-      const newlikes = pagedata.new_like_count
-      console.log(like)
-      
-      })
-    })
-   
-  })
+  
 
 
+app.get("/payer", function (req, res) { 
+  if (req.isAuthenticated()){
+    User.find({"montant": {$ne: null}}, function(err, foundUsers){
+      if (err){
+        console.log(err);
+      } else {
+        if (foundUsers) {
+          res.render("payer", {usersWithSecrets: foundUsers});
+        }
+      }
+    });
+}
+else {
+  res.redirect("/login");
+}
+ })
 
 
 
+
+
+
+ 
 
 app.listen(3000 , function() {
     console.log("port is succesfully running ")
