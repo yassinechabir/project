@@ -1,0 +1,40 @@
+.body{
+    background-color: rgb(153, 118, 118);
+}
+
+
+
+#main {
+    max-width:960px;
+    margin:auto;
+}
+
+#client {
+    float:left;
+    width:240px;
+    height: 500px;
+    border-radius: 50px;
+    margin-top: 100px;
+}
+
+#client4 {
+    float:left;
+    width:240px;
+    height: 500px;
+    margin-top: 100px;
+}
+
+img {
+    border-radius: 20px;
+  }
+
+  .zoom div img {
+	-webkit-transform: scale(1);
+	transform: scale(1);
+	-webkit-transition: .3s ease-in-out;
+	transition: .3s ease-in-out;
+}
+.zoom div:hover img {
+	-webkit-transform: scale(1.2);
+	transform: scale(1.2);
+}

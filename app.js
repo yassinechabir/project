@@ -36,7 +36,8 @@ const userSchema = new mongoose.Schema({
     email : String ,
     page_facebook : String , 
     page_instagram : String,
-    montant : Number
+    montant : Number,
+    imageURL: String
 })
 // const adminSchema = new mongoose.Schema({
 //     username : String,
@@ -84,7 +85,7 @@ app.get('/register' , function(req,res) {
 })
 
 app.post('/register' , function(req,res) {
-  User.register({username : req.body.username, email : req.body.email, page_facebook : req.body.facebook, page_instagram : req.body.instagram},  req.body.password, function(err , user) {
+  User.register({username : req.body.username, email : req.body.email, page_facebook : req.body.facebook, page_instagram : req.body.instagram, imageURL : req.body.image},  req.body.password, function(err , user) {
       if (err) {
           console.log(err)
           res.redirect('/register')
@@ -305,6 +306,23 @@ app.get("/payer", function (req, res) {
       } else {
         if (foundUsers) {
           res.render("payer", {usersWithSecrets: foundUsers});
+        }
+      }
+    });
+}
+else {
+  res.redirect("/login");
+}
+ })
+
+ app.get("/choix", function (req, res) { 
+  if (req.isAuthenticated()){
+    User.find({"imageURL": {$ne: null}}, function(err, foundUsers){
+      if (err){
+        console.log(err);
+      } else {
+        if (foundUsers) {
+          res.render("choix", {usersphotos: foundUsers});
         }
       }
     });
